@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "163337421577",
+    "firebase_url": "https://my-project-claudia.firebaseio.com",
+    "project_id": "my-project-claudia",
+    "storage_bucket": "my-project-claudia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163337421577:android:89d7f3707142e0ee2a49d8",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_security"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "163337421577-9ge70e9e0159et5cknn61c9nlurfci1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfS6V9MpucmHcTwh8XzNiyBoyqhKr3fvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163337421577-9ge70e9e0159et5cknn61c9nlurfci1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
