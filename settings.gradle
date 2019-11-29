@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 include ':app'
 rootProject.name='Proyecto_Security'
-=======
-include ':app'
-rootProject.name='Proyecto_Security'
->>>>>>> parent of d1ff9fb... Segunda entrega encriptacion
