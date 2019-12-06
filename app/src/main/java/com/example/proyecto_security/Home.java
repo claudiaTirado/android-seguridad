@@ -150,7 +150,7 @@ insert(nombre.getText().toString(),email3.getText().toString());
         }
     }
 
-
+//guardar en firebase
     private void insert(String id, String email) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child("UID").setValue(id);

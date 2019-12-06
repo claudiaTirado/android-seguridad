@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class Register extends AppCompatActivity {
     private static SecretKeySpec secret;
     static String clave="claudiatiradopra";
-    byte[] encriptada = new byte[0];
+    String encriptada ;
     String desencriptada;
     private FirebaseAuth mAuth;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -80,24 +80,13 @@ public class Register extends AppCompatActivity {
 
         //encriptamos la contraseña
 
-        try {
-            SecretKey secret = generateKey();
-            encriptada = encryptMsg(contraseña, secret);
-            desencriptada = decrryptMsg(encriptada, secret);
+        MainActivity ob = new MainActivity();
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
+            encriptada = ob.encriptar(contraseña, clave);
+            desencriptada = ob.desencriptar(encriptada, clave);
+
+
 
 
         //Verificamos que las cajas de texto no esten vacías
@@ -151,23 +140,5 @@ Log.d("TAG",confirmar+contraseña);
     }
 
 
-    //clave
-    public static SecretKey generateKey()throws NoSuchAlgorithmException, InvalidKeyException {
-        return secret = new SecretKeySpec(clave.getBytes(),"AES");
-    }
-    //encriptar
-    public static byte[] encryptMsg(String message, SecretKey secret) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-        Cipher cipher = null;
-        cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, secret);
-        byte[] cipherText = cipher.doFinal(message.getBytes("UTF-8"));
-        return cipherText;    }
-    //desencriptar
-    public static String decrryptMsg(byte[] cipherText, SecretKey secret) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-        Cipher cipher = null;
-        cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, secret);
-        String decryptString = new String(cipher.doFinal(cipherText), "UTF-8");
-        return decryptString;
-    }
+
 }
