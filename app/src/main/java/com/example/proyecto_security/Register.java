@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        String correo = email2.getText().toString().trim();
+        final String correo = email2.getText().toString().trim();
         String contraseña = contraseña2.getText().toString().trim();
         String confirmar = confirmacionCon.getText().toString().trim();
 
@@ -123,6 +123,8 @@ Log.d("TAG",confirmar+contraseña);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Register.this, "Se ha registrado el usuario con el email: " + email2.getText(), Toast.LENGTH_LONG).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    BaseDeDatosHelper sqLite = new BaseDeDatosHelper(getApplicationContext());
+                                    sqLite.insert("Claudia Tirado",correo,"46546545",getApplicationContext());
                                     Intent ob = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(ob);
                                 } else {
