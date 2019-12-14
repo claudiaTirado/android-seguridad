@@ -29,7 +29,7 @@ public class Home extends AppCompatActivity implements GoogleApiClient.OnConnect
         GoogleApiClient.ConnectionCallbacks{
     private TextView nombre;
     private TextView email3,lotLat;
-    private DatabaseReference mDatabase;
+    private DatabaseReference db;
     private static final int PETICION_PERMISO_LOCALIZACION = 101;
     private GoogleApiClient apiClient;
     @Override
@@ -67,18 +67,12 @@ insert(nombre.getText().toString(),email3.getText().toString());
     private void traerUsuarioLog() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // Name, email address, and profile photo Url
-
             email3.setText(user.getEmail());
             nombre.setText(user.getUid());
             Uri photoUrl = user.getPhotoUrl();
 
-            // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
 
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
             String uid = user.getUid();
         }
     }
@@ -150,12 +144,12 @@ insert(nombre.getText().toString(),email3.getText().toString());
         }
     }
 
-//guardar en firebase
+
     private void insert(String id, String email) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("User").child("UID").setValue(id);
-        mDatabase.child("User").child("Email").setValue(email);
-        Toast.makeText(getApplicationContext(),"Insert On",Toast.LENGTH_LONG).show();
+        db = FirebaseDatabase.getInstance().getReference();
+        db.child("User").child("UID").setValue(id);
+        db.child("User").child("Email").setValue(email);
+        Toast.makeText(getApplicationContext(),"Insert Successful",Toast.LENGTH_LONG).show();
 
          }
 }

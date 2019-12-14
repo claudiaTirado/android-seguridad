@@ -79,14 +79,14 @@ entrar.setOnClickListener(new View.OnClickListener() {
 private void entrar(){
     String correo = email.getText().toString().trim();
     String contrase = contraseña.getText().toString().trim();
-    //guardar en interno
+
     SharedPreferences preferencias=getSharedPreferences("bdclaudia", Context.MODE_PRIVATE);
     SharedPreferences.Editor editor=preferencias.edit();
     editor.putBoolean("isValid",true);
     editor.putString("email", email.getText().toString());
     editor.putString("contraseña", contraseña.getText().toString());
     editor.commit();
-//encriptar y desencriptar
+
 
 
         encriptada= encriptar(contrase,clave);
@@ -95,7 +95,7 @@ private void entrar(){
         Toast.makeText(getApplicationContext(),"desencriptada"+desencriptada,Toast.LENGTH_LONG).show();
 
 
-    //Verificamos que las cajas de texto no esten vacías
+
     if (TextUtils.isEmpty(correo)) {
         Toast.makeText(this, "Se debe ingresar un email", Toast.LENGTH_LONG).show();
         return;
@@ -112,19 +112,19 @@ private void entrar(){
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
+
                         Toast.makeText(MainActivity.this, "Se ha logueado el usuario con el email: " + email.getText().toString(), Toast.LENGTH_LONG).show();
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Intent ob=new Intent(getApplicationContext(),Home.class);
-                        startActivity(ob);
+                        Intent home=new Intent(getApplicationContext(),Home.class);
+                        startActivity(home);
 
                     } else {
-                        // If sign in fails, display a message to the user.
+
                         Toast.makeText(MainActivity.this, "Usuario o contraseña incorecto ",Toast.LENGTH_SHORT).show();
 
                     }
 
-                    // ...
+
                 }
             });
 }
@@ -142,9 +142,8 @@ private void entrar(){
 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
-            //return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
             return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
-            //return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
+
 
         }
         catch (Exception e)

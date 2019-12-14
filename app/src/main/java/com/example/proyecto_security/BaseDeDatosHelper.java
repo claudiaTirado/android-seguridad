@@ -9,14 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BaseDeDatosHelper extends SQLiteOpenHelper{
     public static final String TABLE_NAME = "USUARIO";
-    public static final String _ID = "_id";
+    public static final String ID = "id";
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String UUID = "uuid";
     static final String DB_NAME = "CLAUDIATIRADO.DB";
     static final int DB_VERSION = 1;
-    private SQLiteDatabase database;
-    private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ID
+    private SQLiteDatabase db;
+    private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT , "+ EMAIL + " TEXT , "+ UUID + " TEXT);";
 
 
@@ -43,19 +43,19 @@ public class BaseDeDatosHelper extends SQLiteOpenHelper{
         contentValue.put(EMAIL, email);
         contentValue.put(UUID, uuid);
         SQLiteOpenHelper dbHelper = new BaseDeDatosHelper(context);
-        database = dbHelper.getWritableDatabase();
-        database.insert(TABLE_NAME, null, contentValue);
+        db = dbHelper.getWritableDatabase();
+        db.insert(TABLE_NAME, null, contentValue);
     }
     public int update(String nombre, String email, String uuid) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME,nombre);
         contentValues.put(EMAIL, email);
         contentValues.put(UUID, uuid);
-        int i = database.update(TABLE_NAME, contentValues, _ID + " = " + uuid, null);
+        int i = db.update(TABLE_NAME, contentValues, ID + " = " + uuid, null);
         return i;
     }
     public void delete(long _id) {
-        database.delete(TABLE_NAME, _ID + "=" + _id, null);
+        db.delete(TABLE_NAME, ID + "=" + _id, null);
     }
 
 

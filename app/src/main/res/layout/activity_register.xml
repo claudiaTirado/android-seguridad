@@ -94,6 +94,20 @@
                 android:inputType="textPassword"
                 android:textSize="24dp" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ingrese Nombre"
+                android:inputType="textPersonName" />
+
             <Button
                 android:id="@+id/btRegistrar2"
                 android:layout_width="match_parent"

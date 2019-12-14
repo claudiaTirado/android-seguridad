@@ -36,10 +36,11 @@ import javax.crypto.spec.SecretKeySpec;
 public class Register extends AppCompatActivity {
     private static SecretKeySpec secret;
     static String clave="claudiatiradopra";
-    String encriptada ;
-    String desencriptada;
+    private String encriptada ;
+    private  String desencriptada;
     private FirebaseAuth mAuth;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private EditText nombre;
     private EditText email2;
     private EditText contraseña2;
     private EditText confirmacionCon;
@@ -49,6 +50,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        nombre =(EditText)findViewById(R.id.editTextName);
         email2 =(EditText) findViewById(R.id.txtEmail2);
         contraseña2 = (EditText) findViewById(R.id.txtContraseña2);
         confirmacionCon = (EditText) findViewById(R.id.txtConfirmarCon);
@@ -74,11 +76,13 @@ public class Register extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
+        final String nombree= nombre.getText().toString().trim();
         final String correo = email2.getText().toString().trim();
+        final String uid="fghgfhfgh";
         String contraseña = contraseña2.getText().toString().trim();
         String confirmar = confirmacionCon.getText().toString().trim();
 
-        //encriptamos la contraseña
+
 
         MainActivity ob = new MainActivity();
 
@@ -88,8 +92,6 @@ public class Register extends AppCompatActivity {
 
 
 
-
-        //Verificamos que las cajas de texto no esten vacías
         if (TextUtils.isEmpty(correo)) {
             Toast.makeText(this, "Se debe ingresar un email", Toast.LENGTH_LONG).show();
             return;
@@ -109,7 +111,7 @@ public class Register extends AppCompatActivity {
 Log.d("TAG",confirmar+contraseña);
 
             FirebaseUser currentUser = mAuth.getCurrentUser();
-            //creating a new user
+
 
         if(contraseña.equals(confirmar)){
 
@@ -119,14 +121,14 @@ Log.d("TAG",confirmar+contraseña);
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                //checking if success
+
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Register.this, "Se ha registrado el usuario con el email: " + email2.getText(), Toast.LENGTH_LONG).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    BaseDeDatosHelper sqLite = new BaseDeDatosHelper(getApplicationContext());
-                                    sqLite.insert("Claudia Tirado",correo,"46546545",getApplicationContext());
-                                    Intent ob = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(ob);
+                                    BaseDeDatosHelper db = new BaseDeDatosHelper(getApplicationContext());
+                                    db.insert(nombree,correo,user.getUid(),getApplicationContext());
+                                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(main);
                                 } else {
 
                                     Toast.makeText(Register.this, "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
@@ -137,7 +139,7 @@ Log.d("TAG",confirmar+contraseña);
 
             }
 
-    }else Toast.makeText(this, "Las contraseñas no coinciden, intente de nuevo", Toast.LENGTH_LONG).show();//else
+    }else Toast.makeText(this, "Las contraseñas no coinciden, intente de nuevo", Toast.LENGTH_LONG).show();
 
     }
 
